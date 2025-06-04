@@ -1,11 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const DOWNLOAD_CODE = 'SECRET123';
+const DOWNLOAD_CODE = process.env.DOWNLOAD_CODE;
+
+if (!DOWNLOAD_CODE) {
+  console.error('DOWNLOAD_CODE is not set.');
+  process.exit(1);
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
